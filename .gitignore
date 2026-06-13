@@ -5,6 +5,12 @@
 .venv/
 venv/
 
+# macOS Finder
+.DS_Store
+
+# VS Code
+.vscode/settings.json
+
 # Python cache
 __pycache__/
 *.pyc

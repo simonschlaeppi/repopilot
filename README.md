@@ -2,20 +2,21 @@
 
 **RepoPilot** is a lightweight AI-assisted repository documentation tool.
 
-It analyzes a repository README file and generates a structured, easy-to-understand explanation of the project.
+It analyzes a repository's README file and source code to generate a structured, easy-to-understand explanation of the project.
 
-The current version focuses on the **README-only analysis flow**. The backend and frontend are already separated, providing a clean foundation for extending the tool later with full repository and source-code analysis.
+The tool supports both **README-only analysis** and **comprehensive code analysis**, providing flexible options for understanding repositories of different sizes and complexities.
 
 ---
 
 ## Overview
 
-RepoPilot helps users quickly understand what a software project is about by using AI to interpret the repository documentation.
+RepoPilot helps users quickly understand what a software project is about by using AI to interpret repository documentation and source code.
 
-In its current version, RepoPilot:
+RepoPilot:
 
 * reads the content of a repository `README.md`
-* sends the README content to an AI-powered backend
+* optionally analyzes source code structure and key files
+* sends the content to an AI-powered backend
 * generates a structured explanation of the project
 * presents the result in a simple Streamlit-based user interface
 
@@ -23,18 +24,15 @@ This makes RepoPilot useful as an early-stage developer assistant for repository
 
 ---
 
-## Current Scope
+## Current Features
 
-This version is the **README-Version** of RepoPilot.
+This version includes:
 
-That means:
-
-* only the repository README is analyzed
-* source code files are not analyzed yet
-* no repository-wide dependency or architecture scanning is included yet
-* the backend and frontend already run as separate components
-
-Planned extensions may include source-code analysis, README-to-code comparison, architecture insights, and improvement suggestions.
+* **README Analysis** - Core feature that analyzes the README file
+* **Code Analysis** - NEW: Analyzes repository structure, file organization, and code patterns
+* **Source Code Inspection** - NEW: Fetches key files to understand implementation details
+* **Language Detection** - NEW: Identifies programming languages used in the repository
+* **Structured Output** - AI-generated explanations covering architecture, tech stack, and key concepts
 
 ---
 
@@ -47,7 +45,8 @@ RepoPilot
 │
 ├── Backend
 │   └── FastAPI service
-│       ├── receives README content
+│       ├── receives README and code analysis requests
+│       ├── fetches code from GitHub API
 │       ├── prepares the AI prompt
 │       ├── calls the OpenAI API
 │       └── returns the generated explanation
@@ -55,7 +54,8 @@ RepoPilot
 └── Frontend
     └── Streamlit app
         ├── provides the user interface
-        ├── accepts README input
+        ├── accepts repository input
+        ├── offers code analysis toggle
         ├── sends requests to the backend
         └── displays the AI-generated result
 ```
@@ -79,15 +79,16 @@ RepoPilot uses a simple Python-based stack:
 
 ## How It Works
 
-The current README analysis flow works as follows:
+The analysis flow works as follows:
 
 1. The user starts the FastAPI backend.
 2. The user starts the Streamlit frontend.
-3. The user provides README content in the frontend.
-4. The frontend sends the README content to the backend.
-5. The backend creates a prompt for the OpenAI API.
-6. The OpenAI API returns a structured explanation.
-7. The frontend displays the result to the user.
+3. The user provides repository owner and name in the frontend.
+4. The user optionally enables code analysis.
+5. The frontend sends the request to the backend.
+6. The backend fetches README and optionally analyzes code structure.
+7. The AI generates a comprehensive explanation.
+8. The frontend displays the result to the user.
 
 ```text
 User
@@ -95,14 +96,17 @@ User
  ▼
 Streamlit Frontend
  │
- ▼
-FastAPI Backend
- │
- ▼
-OpenAI API
- │
- ▼
-Generated Repository Explanation
+ ├─→ (README Request) ─┐
+ │                      │
+ ├─→ (Code Analysis Request) ─→ GitHub API
+ │                      │
+ └─→ FastAPI Backend ───┘
+                      │
+                      ▼
+                   OpenAI API
+                      │
+                      ▼
+         Generated Repository Explanation
 ```
 
 ---
@@ -114,20 +118,19 @@ A typical project structure looks like this:
 ```text
 RepoPilot/
 │
-├── backend/
-│   ├── main.py
-│   ├── requirements.txt
-│   └── .env
+├── app/
+│   ├── main.py              # FastAPI backend entry point
+│   ├── ai.py                # OpenAI integration
+│   ├── github_loader.py     # GitHub README fetching
+│   ├── code_analyzer.py     # NEW: Code analysis and structure extraction
+│   └── ui.py                # Streamlit frontend
 │
-├── frontend/
-│   ├── app.py
-│   └── requirements.txt
-│
-├── README.md
+├── requirements.txt         # Python dependencies
+├── README.md               # This file
+├── .env.example            # Environment variable template
 └── .gitignore
-```
 
-Depending on your local setup, filenames may differ slightly.
+```
 
 ---
 
@@ -135,7 +138,7 @@ Depending on your local setup, filenames may differ slightly.
 
 Before running RepoPilot, make sure you have:
 
-* Python installed
+* Python 3.8+ installed
 * Visual Studio Code or another code editor
 * an OpenAI API key
 * a local virtual environment
@@ -170,24 +173,13 @@ source .venv/bin/activate
 
 ### 3. Install dependencies
 
-Install the required dependencies for the backend and frontend.
-
-Example:
-
 ```bash
 pip install -r requirements.txt
 ```
 
-If backend and frontend have separate requirement files:
-
-```bash
-pip install -r backend/requirements.txt
-pip install -r frontend/requirements.txt
-```
-
 ### 4. Configure environment variables
 
-Create a `.env` file in the backend folder:
+Create a `.env` file in the root directory:
 
 ```env
 OPENAI_API_KEY=your_openai_api_key_here
@@ -204,8 +196,7 @@ RepoPilot uses two separate terminals: one for the backend and one for the front
 ### Terminal 1: Start the backend
 
 ```bash
-cd backend
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 The backend usually runs on:
@@ -217,8 +208,7 @@ http://127.0.0.1:8000
 ### Terminal 2: Start the frontend
 
 ```bash
-cd frontend
-streamlit run app.py
+streamlit run app/ui.py
 ```
 
 The frontend usually opens in your browser at:
@@ -226,3 +216,33 @@ The frontend usually opens in your browser at:
 ```text
 http://localhost:8501
 ```
+
+---
+
+## Usage
+
+1. Enter the GitHub repository owner/organization and repository name
+2. Optionally enable "Include code analysis" for deeper insights
+3. Click "Analyze repository"
+4. View the generated analysis
+
+### Example
+
+- Owner: `psf`
+- Repository: `requests`
+- With code analysis: Provides insights into HTTP handling patterns, request architecture, etc.
+
+---
+
+## Features Explained
+
+### README Analysis
+- Extracts and interprets the README content
+- Suitable for quick overviews of any public repository
+
+### Code Analysis (Optional)
+- Scans repository structure and file organization
+- Identifies programming languages and key files
+- Fetches and previews main implementation files
+- Provides insights into architecture and design patterns
+- Useful for understanding project organization and code structure
