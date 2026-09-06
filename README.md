@@ -32,6 +32,7 @@ This version includes:
 * **Code Analysis** - NEW: Analyzes repository structure, file organization, and code patterns
 * **Source Code Inspection** - NEW: Fetches key files to understand implementation details
 * **Language Detection** - NEW: Identifies programming languages used in the repository
+* **Repo Health Score** - NEW: Computes a composite 0–100 health score with a five-category breakdown (README Quality, Documentation, Test Coverage, Dependency Freshness, README-vs-Code Consistency)
 * **Structured Output** - AI-generated explanations covering architecture, tech stack, and key concepts
 
 ---
@@ -74,6 +75,8 @@ RepoPilot uses a simple Python-based stack:
 | AI Integration | OpenAI API    | Generates the repository explanation   |
 | Configuration  | python-dotenv | Loads environment variables            |
 | HTTP Client    | requests      | Enables frontend-backend communication |
+| Testing        | pytest        | Runs the test suite                    |
+| Property Tests | Hypothesis    | Property-based testing of scoring core |
 
 ---
 
@@ -123,9 +126,15 @@ RepoPilot/
 │   ├── ai.py                # OpenAI integration
 │   ├── github_loader.py     # GitHub README fetching
 │   ├── code_analyzer.py     # NEW: Code analysis and structure extraction
-│   └── ui.py                # Streamlit frontend
+│   ├── ui.py                # Streamlit frontend
+│   └── health/              # NEW: Repo health score (pure scoring core, signals, weights)
+│
+├── tests/
+│   └── health/              # NEW: pytest + hypothesis property-based test suite
 │
 ├── requirements.txt         # Python dependencies
+├── requirements-dev.txt     # Dev/test dependencies (pytest, hypothesis)
+├── pytest.ini              # pytest configuration
 ├── README.md               # This file
 ├── .env.example            # Environment variable template
 └── .gitignore
@@ -183,7 +192,10 @@ Create a `.env` file in the root directory:
 
 ```env
 OPENAI_API_KEY=your_openai_api_key_here
+HEALTH_SCORING_ENABLED=true
 ```
+
+`HEALTH_SCORING_ENABLED` toggles the Repo Health Score feature. It defaults to off in the backend when the variable is unset, so set it to `true` to include the score in the analysis.
 
 Do not commit your `.env` file to GitHub.
 
@@ -217,6 +229,15 @@ The frontend usually opens in your browser at:
 http://localhost:8501
 ```
 
+### Running the tests
+
+Install the dev/test dependencies, then run the health-score test suite:
+
+```bash
+pip install -r requirements-dev.txt
+pytest tests/health -q
+```
+
 ---
 
 ## Usage
@@ -246,3 +267,16 @@ http://localhost:8501
 - Fetches and previews main implementation files
 - Provides insights into architecture and design patterns
 - Useful for understanding project organization and code structure
+
+### Repo Health Score
+Computes a single composite score from 0 to 100 with a per-category breakdown, shown on the Streamlit dashboard alongside the existing analysis. The score covers five categories:
+
+- **README Quality** - completeness of the README (length, headings, code blocks, install and usage sections)
+- **Documentation** - presence of documentation files (Markdown/reStructuredText and `docs/` entries)
+- **Test Coverage** - presence of test files and CI configuration
+- **Dependency Freshness** - presence of a dependency lockfile/manifest and how many declared dependencies are pinned vs unpinned
+- **README-vs-Code Consistency** - how well technologies mentioned in the README match what is actually detected in the code (languages, key files, and file-presence indicators like Docker/Terraform/CI workflows)
+
+Category weights are configuration-driven, so they can be tuned without changing the scoring logic. The scoring computation is a pure function that operates on already-collected signals (README text + code structure) and introduces no new external GitHub API calls. Categories scored from unavailable signals are flagged as limited data rather than shown as a confident zero.
+
+The feature is opt-in: set `HEALTH_SCORING_ENABLED=true` to enable it.
