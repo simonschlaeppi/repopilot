@@ -1,0 +1,1121 @@
+{
+  "pbtResults": {
+    "3.2 Write property test: composite invariant under positive weight scaling": {
+      "status": "passed",
+      "lastRunTimestamp": 1788682707336
+    },
+    "3.3 Write property test: missing weight raises named configuration error": {
+      "status": "passed",
+      "lastRunTimestamp": 1788682511915
+    },
+    "4.2 Write property test: lockfile parse preserves declaration count": {
+      "status": "passed",
+      "lastRunTimestamp": 1788682519136
+    },
+    "4.3 Write property test: pinned/unpinned classification is correct": {
+      "status": "passed",
+      "lastRunTimestamp": 1788683278847
+    },
+    "5.4 Write property test: availability flags match data presence": {
+      "status": "passed",
+      "lastRunTimestamp": 1788684842677
+    },
+    "5.6 Write property test: technology-reference recognition is case-insensitive": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685036939
+    },
+    "5.7 Write property test: detectable references are deduplicated case-insensitively": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685158420
+    },
+    "5.8 Write property test: matches and mismatches partition the reference set": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685266288
+    },
+    "5.9 Write property test: consistency ratio is well-defined and in range": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685341897
+    },
+    "5.10 Write property test: consistency availability conditions": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685455467
+    },
+    "5.11 Write property test: dependency counts aggregate across lockfiles": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685526185
+    },
+    "5.12 Write property test: dependency availability requires a lockfile": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685626122
+    },
+    "7.2 Write property test: every category score is within range": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685782283
+    },
+    "7.4 Write property test: documentation score rewards documentation presence": {
+      "status": "passed",
+      "lastRunTimestamp": 1788685989348
+    },
+    "7.6 Write property test: dependency freshness decreases with unpinned dependencies": {
+      "status": "passed",
+      "lastRunTimestamp": 1788686201519
+    },
+    "7.7 Write property test: consistency score is monotonic in match ratio": {
+      "status": "passed",
+      "lastRunTimestamp": 1788686288110
+    },
+    "7.8 Write property test: unavailable signal defaults to zero with missing_data": {
+      "status": "passed",
+      "lastRunTimestamp": 1788686375984
+    },
+    "7.9 Write property test: scoring is deterministic and pure": {
+      "status": "passed",
+      "lastRunTimestamp": 1788686454422
+    },
+    "7.10 Write property test: composite is the round-half-up weighted sum in range": {
+      "status": "passed",
+      "lastRunTimestamp": 1788686572988
+    },
+    "7.11 Write property test: result contains the composite and all five categories": {
+      "status": "passed",
+      "lastRunTimestamp": 1788686657517
+    },
+    "7.12 Write property test: out-of-range category score raises ScoreValueError": {
+      "status": "passed",
+      "lastRunTimestamp": 1788686751184
+    }
+  },
+  "executionHistory": {
+    "1.1 Add dev test dependencies and pytest configuration": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856306
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681864941
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682051501
+      }
+    ],
+    "1.2 Create the `app/health/` package skeleton and error types": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856368
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681867226
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682053902
+      }
+    ],
+    "2.1 Define frozen dataclasses and the Category enum": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856389
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682056758
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682247077
+      }
+    ],
+    "2.2 Write unit tests for models": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856416
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682250240
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682427807
+      }
+    ],
+    "3.1 Implement `weights.py` (defaults, load, normalize, validation)": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856438
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682251572
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682428768
+      }
+    ],
+    "3.2 Write property test: composite invariant under positive weight scaling": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856460
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682436012
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683212226
+      }
+    ],
+    "3.3 Write property test: missing weight raises named configuration error": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856488
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682437404
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683213181
+      }
+    ],
+    "3.4 Write property test: invalid weight configuration raises a configuration error": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856511
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682438452
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682608957
+      }
+    ],
+    "3.5 Write unit tests for weight defaults and normalization edges": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856532
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682439807
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682609891
+      }
+    ],
+    "4.1 Implement `lockfile.py` `parse_pinning`": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856556
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682252235
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682429738
+      }
+    ],
+    "4.2 Write property test: lockfile parse preserves declaration count": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856582
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682440502
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682608036
+      }
+    ],
+    "4.3 Write property test: pinned/unpinned classification is correct": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856599
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683220608
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683435856
+      }
+    ],
+    "4.4 Write unit tests for parse_pinning edge cases": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856620
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683221909
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683436747
+      }
+    ],
+    "5.1 Implement file classification and `extract_signals` core": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856639
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683222742
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683439284
+      }
+    ],
+    "5.2 Implement README-vs-code consistency derivation": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856659
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683443370
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683884318
+      }
+    ],
+    "5.3 Aggregate dependency pinning across lockfiles": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856682
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683885039
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684697589
+      }
+    ],
+    "5.4 Write property test: availability flags match data presence": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856704
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684703621
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684884339
+      }
+    ],
+    "5.5 Write property test: file classification partitions by pattern": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856724
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684888453
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684959616
+      }
+    ],
+    "5.6 Write property test: technology-reference recognition is case-insensitive": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856743
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684960320
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685052669
+      }
+    ],
+    "5.7 Write property test: detectable references are deduplicated case-insensitively": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856766
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685051882
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685177848
+      }
+    ],
+    "5.8 Write property test: matches and mismatches partition the reference set": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856788
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685176815
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685279839
+      }
+    ],
+    "5.9 Write property test: consistency ratio is well-defined and in range": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856816
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685280740
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685359549
+      }
+    ],
+    "5.10 Write property test: consistency availability conditions": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856843
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685360406
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685468752
+      }
+    ],
+    "5.11 Write property test: dependency counts aggregate across lockfiles": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856866
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685469633
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685554460
+      }
+    ],
+    "5.12 Write property test: dependency availability requires a lockfile": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856883
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685555089
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685636919
+      }
+    ],
+    "5.13 Write unit tests for extract_signals (structured-not-text, empty inputs)": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856905
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684705002
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684882437
+      }
+    ],
+    "6. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856925
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685662042
+      }
+    ],
+    "7.1 Implement `compute_health_score`": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856944
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684705954
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684881070
+      }
+    ],
+    "7.2 Write property test: every category score is within range": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856966
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685667311
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685810091
+      }
+    ],
+    "7.3 Write property test: README quality is monotonic in completeness": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681856988
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685817244
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685913382
+      }
+    ],
+    "7.4 Write property test: documentation score rewards documentation presence": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857008
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685914108
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686002401
+      }
+    ],
+    "7.5 Write property test: test coverage score rewards test files and CI": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857026
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686001443
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686117524
+      }
+    ],
+    "7.6 Write property test: dependency freshness decreases with unpinned dependencies": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857049
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686116832
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686214548
+      }
+    ],
+    "7.7 Write property test: consistency score is monotonic in match ratio": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857072
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686215388
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686302305
+      }
+    ],
+    "7.8 Write property test: unavailable signal defaults to zero with missing_data": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857092
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686303115
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686387603
+      }
+    ],
+    "7.9 Write property test: scoring is deterministic and pure": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857111
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686388329
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686470138
+      }
+    ],
+    "7.10 Write property test: composite is the round-half-up weighted sum in range": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857133
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686470824
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686586437
+      }
+    ],
+    "7.11 Write property test: result contains the composite and all five categories": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857160
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686587203
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686669154
+      }
+    ],
+    "7.12 Write property test: out-of-range category score raises ScoreValueError": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857183
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686670054
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686765040
+      }
+    ],
+    "7.13 Write unit tests: round-half-up boundary and import boundary": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857205
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685668746
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685811394
+      }
+    ],
+    "8. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857225
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686830073
+      }
+    ],
+    "9.1 Add `is_lockfile` predicate and structured tree retention": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857249
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683444453
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683882870
+      }
+    ],
+    "9.2 Implement `analyze_repository` returning `StructuredCodeData`": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857271
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684707001
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788684883871
+      }
+    ],
+    "9.3 Reimplement `get_code_summary` as a thin adapter": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857291
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685670164
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685812398
+      }
+    ],
+    "9.4 Write unit tests for the guaranteed lockfile fetch and summary compatibility": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857315
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686831376
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687053817
+      }
+    ],
+    "10.1 Add `HEALTH_SCORING_ENABLED` flag and additive health block": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857334
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686832161
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687054856
+      }
+    ],
+    "10.2 Write API integration tests (FastAPI TestClient, mocked fetchers)": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857354
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687059150
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687284203
+      }
+    ],
+    "11.1 Implement dashboard render helpers and wiring": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857375
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687059917
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687285031
+      }
+    ],
+    "11.2 Write example tests for the render helpers": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857399
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687288548
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687354116
+      }
+    ],
+    "12.1 Write import-boundary and no-network tests for the pure core": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857420
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685670828
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685813433
+      }
+    ],
+    "13. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788681857439
+      },
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687394550
+      }
+    ],
+    "1. Set up test tooling and the health package skeleton": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682053933
+      }
+    ],
+    "2. Implement health data models": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788682427840
+      }
+    ],
+    "3. Implement configuration-driven weights": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683213219
+      }
+    ],
+    "4. Implement the lockfile pinning parser": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788683436774
+      }
+    ],
+    "5. Implement signal extraction": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685636953
+      }
+    ],
+    "12. Add import-boundary and no-network guard tests": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788685813473
+      }
+    ],
+    "7. Implement the pure scoring core": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788686765070
+      }
+    ],
+    "9. Refactor code_analyzer to expose structured data with guaranteed lockfile fetch": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687053850
+      }
+    ],
+    "10. Wire health scoring into the Analysis API": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687284257
+      }
+    ],
+    "11. Render the health score on the dashboard": [
+      {
+        "executionId": "890aeb47-27eb-434e-9159-3ce9c5f15937",
+        "chatSessionId": "sess_ad20b06a-dfcd-416c-9c6f-613785273854",
+        "timestamp": 1788687354149
+      }
+    ],
+    "14.1 Retain classification-relevant files independent of `is_important_file`": [
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692251047
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692254873
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692412470
+      }
+    ],
+    "14.2 Decouple the classification set size from the Content_Fetch_Budget": [
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692251078
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692418110
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692523216
+      }
+    ],
+    "14.3 Broaden the README-vs-code consistency vocabulary (Group A only)": [
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692251104
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692257822
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692414975
+      }
+    ],
+    "14.4 Report \"no detectable references\" as limited-data rather than a confident zero": [
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692251146
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692420572
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692525580
+      }
+    ],
+    "14.5 Update affected tests for the new behavior": [
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692251174
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692528380
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692870728
+      }
+    ],
+    "15. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692251195
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692873661
+      },
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692905595
+      }
+    ],
+    "14. Fix signal extraction gaps (Documentation false-zero, cap starvation, consistency vocabulary)": [
+      {
+        "executionId": "aed31015-f468-4e53-90d8-d5c6fc7e1f37",
+        "chatSessionId": "sess_c826e6c2-d39a-44ef-88fb-75f74f12046e",
+        "timestamp": 1788692870779
+      }
+    ]
+  }
+}

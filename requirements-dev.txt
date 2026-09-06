@@ -1,0 +1,8 @@
+# Development / test-only dependencies.
+# These are NOT required by the runtime backend (see requirements-backend.txt)
+# and are intentionally kept out of requirements.txt.
+#
+# Install with:  pip install -r requirements-dev.txt
+# Run the suite: pytest tests/health
+pytest==8.3.4
+hypothesis==6.122.3

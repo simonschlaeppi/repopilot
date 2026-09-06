@@ -11,7 +11,7 @@ A key precondition surfaced during codebase review: today RepoPilot's code analy
 ### Scope Notes
 
 - **In scope:** Extracting structured signals from existing README and code-structure analysis, a pure scoring function, config-driven category weights, an API surface for the score, and a dashboard breakdown view.
-- **Out of scope:** Historical tracking of a repository's score over time; comparing or ranking multiple repositories against each other; introducing new external data sources or scraping beyond what RepoPilot already collects.
+- **Out of scope:** Historical tracking of a repository's score over time; comparing or ranking multiple repositories against each other; introducing new external data sources or scraping beyond what RepoPilot already collects; framework/ecosystem consistency detection that parses manifest dependency contents ("Group B" technology references such as React/Django/FastAPI named as dependencies), which is deferred to a future requirement.
 
 ## Glossary
 
@@ -27,6 +27,9 @@ A key precondition surfaced during codebase review: today RepoPilot's code analy
 - **Lockfile**: A dependency lock or manifest file used to detect dependency pinning (for example requirements.txt, package.json, pyproject.toml, go.mod, Cargo.toml).
 - **CI_Config**: A continuous-integration configuration artifact detectable from the file tree (for example a .github workflows path).
 - **Unpinned_Dependency**: A dependency declaration that uses a wildcard, an open or unbounded version range, or no version specifier at all, detected directly from Lockfile contents with no external registry lookup. The presence of Unpinned_Dependency instances is a negative signal for Dependency_Freshness.
+- **Signal_Classification_Set**: The set of repository file paths made available to the Signal_Extractor for classification into documentation, test, CI_Config, and Lockfile groups. This is distinct from the smaller set of files whose contents are fetched for the AI code summary; membership is governed by the classification predicates, not by the content-fetch budget.
+- **Content_Fetch_Budget**: The maximum number of non-lockfile file contents fetched for the AI code summary (historically the `max_files` cap). It bounds content fetching only; it does not bound which file paths are available for signal classification.
+- **Technology_Reference_Vocabulary**: The deterministic, offline set of terms the Signal_Extractor recognizes as detectable technology references in README text. It includes known language names, known key-file/manifest names, and a curated set of file-type/config indicators ("Group A": for example Docker, Makefile, Terraform, GraphQL, Kubernetes/Helm, CI workflows), where each Group A term is paired with a concrete file-presence detector so a mention only matches when the corresponding artifact exists in the file tree. It requires no network access. Framework/ecosystem terms detected by parsing manifest dependency *contents* ("Group B": for example React, Django, FastAPI named as dependencies) are out of scope for this vocabulary and deferred to a future requirement.
 
 ## Requirements
 
@@ -43,6 +46,8 @@ A key precondition surfaced during codebase review: today RepoPilot's code analy
 5. THE Signal_Extractor SHALL derive all Repository_Signals fields without issuing external network requests to services other than the existing GitHub repository fetch flow.
 6. IF a required source input (README text or code-structure data) is absent, THEN THE Signal_Extractor SHALL populate the corresponding Repository_Signals fields with empty collections or empty strings and SHALL set the per-field availability indicator for each affected field to false.
 7. WHEN a Repository_Signals field is successfully populated from available source data, THE Signal_Extractor SHALL set that field's availability indicator to true.
+8. THE Signal_Classification_Set SHALL include every repository file path that matches a documentation, test, CI_Config, or Lockfile classification pattern, independent of whether that path is selected for AI code-summary content fetching, so that classification under Requirement 1.3 is not suppressed by content-selection heuristics (for example a heuristic that excludes Markdown files).
+9. THE size of the Signal_Classification_Set SHALL NOT be limited by the Content_Fetch_Budget; the Content_Fetch_Budget SHALL bound only the number of file contents fetched for the AI code summary and SHALL NOT reduce which file paths are available for signal classification.
 
 ### Requirement 2: Compute Category Scores from Signals
 
@@ -64,12 +69,12 @@ A key precondition surfaced during codebase review: today RepoPilot's code analy
 
 #### Acceptance Criteria
 
-1. THE Signal_Extractor SHALL treat a README token as a detectable technology reference when it matches, case-insensitively, one of the system's known language names or known key-file names.
+1. THE Signal_Extractor SHALL treat a README token as a detectable technology reference when it matches, case-insensitively, an entry in the Technology_Reference_Vocabulary (which includes known language names, known key-file/manifest names, and a curated set of file-type/config indicators, each paired with a file-presence detector).
 2. THE Signal_Extractor SHALL derive the set of unique detectable technology references from the README text by deduplicating matched references case-insensitively.
-3. WHEN a unique README technology reference matches a detected language or detected key file in the code structure, THE Signal_Extractor SHALL count that reference as a consistency match.
-4. WHEN a unique README technology reference does not match any detected language or detected key file in the code structure, THE Signal_Extractor SHALL count that reference as a consistency mismatch.
+3. WHEN a unique README technology reference matches a detected language, a detected key file, or a detected framework/tooling/file-type indicator in the code structure, THE Signal_Extractor SHALL count that reference as a consistency match.
+4. WHEN a unique README technology reference does not match any detected language, detected key file, or detected framework/tooling/file-type indicator in the code structure, THE Signal_Extractor SHALL count that reference as a consistency mismatch.
 5. THE Signal_Extractor SHALL express the Readme_Code_Consistency signal as the ratio of consistency matches to the total count of unique detectable technology references, as a value in the range 0.0 to 1.0 inclusive.
-6. IF the README contains no detectable technology references, THEN THE Signal_Extractor SHALL set the Readme_Code_Consistency signal availability indicator to false.
+6. IF the README contains no detectable technology references, THEN THE Signal_Extractor SHALL set the Readme_Code_Consistency signal availability indicator to false, so that the category is reported as derived from missing data (limited-data) per Requirements 2.6 and 7.5 rather than as a confident zero score.
 7. IF the detected code structure contains no languages and no key files, THEN THE Signal_Extractor SHALL set the Readme_Code_Consistency signal availability indicator to false.
 
 ### Requirement 4: Derive Unpinned Dependency Signal from Lockfiles

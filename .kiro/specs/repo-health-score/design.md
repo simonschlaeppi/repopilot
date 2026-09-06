@@ -10,6 +10,8 @@ The central design problem surfaced during codebase review: `app/code_analyzer.p
 
 A second review finding drives a specific design guarantee: the existing tree scan caps at `max_files=20` and only fetches contents of the first 5 key files. Lockfiles in large repos could therefore never be fetched, silently degrading Dependency_Freshness to a presence-only signal that never inspects pinning. The design guarantees that **detected lockfiles are always retained in the file list and always have their contents fetched**, independent of both caps.
 
+Two further findings from post-implementation testing (observed on `mattpocock/skills`) generalize this guarantee. First, the tree scan admitted files via `is_important_file`, which **excludes Markdown** — a heuristic meant to pick AI content samples, but which silently prevented the Signal_Extractor from ever seeing documentation files, forcing a false `0` on Documentation for docs-heavy repositories. Second, `max_files` limited not only content fetching but also which paths were available for classification, starving test/CI/doc detection on larger repositories. The design therefore separates two concerns: a **Content_Fetch_Budget** (`max_files`, bounding only AI content fetches) and a **Signal_Classification_Set** (every classification-relevant path, unbounded by that budget). Additionally, the README-vs-code consistency vocabulary is broadened beyond bare language names to a curated framework/tooling/file-type set, and a README with no detectable references now yields a **limited-data** category (`missing_data=True`) rather than a confident `0`.
+
 ### Design Goals and Rationale
 
 | Goal | Rationale |
@@ -111,11 +113,12 @@ sequenceDiagram
     UI->>UI: render composite + breakdown OR unavailability reason
 ```
 
-### Guaranteed Lockfile Fetch (Design Guarantee)
+### Guaranteed Signal Classification and Lockfile Fetch (Design Guarantee)
 
 This is a first-class design guarantee, not an implementation detail:
 
-1. **Tree scan retention.** During the repository tree scan, files matching the lockfile predicate are **always** retained in `StructuredCodeData.files`, even if they fall beyond the `max_files` cap. The cap governs only *non-lockfile* files: the scan appends detected lockfile paths unconditionally so they cannot be dropped by the early `break`.
+0. **Classification is not gated by content-selection heuristics (Req 1.8/1.9).** The `is_important_file` heuristic exists to pick which files' *contents* are worth fetching for the AI summary; it excludes Markdown and other non-source files by design. That heuristic MUST NOT decide what the Signal_Extractor can *classify*. The tree scan therefore retains, in `StructuredCodeData.files`, every path matching a classification predicate — documentation (Markdown/reStructuredText/`docs/` entries), test, CI_Config, and Lockfile — regardless of `is_important_file`. Without this, documentation-heavy repositories score a false 0 on Documentation because their `.md` files never reach the classifier (observed on `mattpocock/skills`).
+1. **Tree scan retention.** During the repository tree scan, files matching the lockfile predicate are **always** retained in `StructuredCodeData.files`, even if they fall beyond the content-fetch budget. The `max_files` budget governs only which *non-lockfile file contents* are fetched for the AI summary; it does not remove classification-relevant paths from `files`. The scan appends classification-relevant and lockfile paths unconditionally so they cannot be dropped by the early `break`.
 2. **Content fetch.** The analyzer fetches the contents of **every** detected lockfile and stores them in `StructuredCodeData.file_contents`. This is separate from and additional to the existing first-5-key-files sample fetch.
 3. **Bounded cost.** This adds at most one extra content fetch per detected lockfile. Lockfiles are few per repository, so the cost is small and bounded. It introduces **no** new external data source or registry lookup — lockfile content fetching is part of the same repo-analysis fetch flow as README and key-file fetches. The pinning *derivation* itself issues no network request (Req 4.5).
 4. **Expected vs. rare case.** The expected path is: lockfile detected → contents fetched → parsed for pinning. "Present but contents unavailable" (counts toward presence only; `total=0`, `unpinned=0`) is a **rare error fallback** for genuine fetch-failure or unparseable cases only — not the normal outcome for large repos.
@@ -152,8 +155,12 @@ New structured entry point plus a thin adapter that preserves the existing AI pa
 def analyze_repository(owner: str, repo: str, max_files: int = 20) -> StructuredCodeData:
     """Scan the repo tree and fetch contents, returning STRUCTURED data.
 
-    - Non-lockfile files are capped at max_files.
-    - Detected lockfiles are ALWAYS retained in `files` regardless of the cap.
+    - `max_files` is the Content_Fetch_Budget: it bounds only how many
+      non-lockfile file CONTENTS are fetched for the AI summary. It does NOT
+      limit which paths appear in `files` for signal classification (Req 1.9).
+    - `files` retains every classification-relevant path (documentation, test,
+      CI_Config) and every detected lockfile, regardless of the budget
+      (Req 1.8). Detected lockfiles are ALWAYS retained.
     - `file_contents` includes the first-5-key-file samples AND every detected lockfile.
     Reuses the existing GitHub fetch flow; no registry lookups.
     """
@@ -163,7 +170,7 @@ def get_code_summary(owner: str, repo: str) -> str:
     and formats the structured data into the same free-text summary the AI path uses."""
 ```
 
-- `is_important_file` / `get_file_language` / `LANGUAGE_EXTENSIONS` are retained and reused.
+- `is_important_file` / `get_file_language` / `LANGUAGE_EXTENSIONS` are retained and reused, but `is_important_file` scopes ONLY the AI content-fetch selection. Classification-relevant paths (documentation/test/CI_Config/Lockfile predicates) are retained in `files` independently of `is_important_file`, so excluding Markdown from AI sampling no longer suppresses Documentation classification (Req 1.8).
 - A new `is_lockfile(path)` predicate recognizes `requirements.txt`, `package.json`, `pyproject.toml`, `setup.py`, `go.mod`, `Cargo.toml`, and similar manifests.
 - The formatted-text output produced by `get_code_summary` remains byte-for-byte compatible with today's summary so `explain_repo_with_code` is unaffected.
 
@@ -176,10 +183,26 @@ def extract_signals(readme: str | None, code: StructuredCodeData | None) -> Repo
 ```
 
 Responsibilities:
-- Classify files into documentation, test, and CI_Config groups by path pattern (Req 1.3).
+- Classify files into documentation, test, and CI_Config groups by path pattern (Req 1.3). Classification operates over the Signal_Classification_Set — the full set of classification-relevant paths retained by `analyze_repository` — and is NOT limited to the AI content-fetch selection (Req 1.8/1.9). In particular, Markdown/`docs/` paths must be visible here even though `is_important_file` excludes them from AI sampling.
 - Detect lockfiles and, for each, call `lockfile.parse_pinning` to aggregate `dependency_total` / `dependency_unpinned` (Req 4).
-- Derive README-vs-code consistency: tokenize the README, match tokens case-insensitively against known language names + known key-file names, deduplicate, and compute the match ratio in [0.0, 1.0] (Req 3).
-- Set per-category availability flags per Req 1.6/1.7, 3.6/3.7, 4.6.
+- Derive README-vs-code consistency: tokenize the README, match tokens case-insensitively against the **Technology_Reference_Vocabulary**, deduplicate case-insensitively, and compute the match ratio in [0.0, 1.0] (Req 3.1-3.5). The vocabulary is composed of module-level constants (no network; pure/deterministic):
+  - **Known language names** (`KNOWN_LANGUAGES`) — matched against detected languages (existing behavior).
+  - **Known key-file / manifest names** (`LOCKFILE_NAMES`) — matched against detected key files (existing behavior).
+  - **`TECH_REFERENCE_TERMS`** (new) — a curated, offline set of **file-type / config indicators (Group A)**. Each term is paired with a concrete code-side detector so a README mention only counts as a *match* when the corresponding artifact is actually present in the file tree; otherwise it is a mismatch (never a vacuous match). Group A starter set:
+
+    | README term(s) | Detected when the file tree contains |
+    |---|---|
+    | `docker`, `dockerfile` | a `Dockerfile` |
+    | `docker-compose`, `compose` | `docker-compose.yml` / `docker-compose.yaml` / `compose.yaml` |
+    | `kubernetes`, `k8s` | a `k8s/`/`kubernetes/` dir entry or a `Chart.yaml` |
+    | `helm` | a `Chart.yaml` or `helm/` dir entry |
+    | `terraform` | a `*.tf` file |
+    | `make`, `makefile` | a `Makefile` |
+    | `graphql` | a `*.graphql` / `*.gql` file |
+    | `github actions`, `workflow` | a `.github/workflows/*` entry (also the CI signal) |
+
+  A README that references a project by tooling/config (not by a bare language keyword) can therefore match. **Group B (framework/ecosystem terms matched against manifest *contents* — e.g. React/Django/FastAPI named as dependencies)** is explicitly **out of scope** for this change and is deferred to a future requirement; it requires parsing manifest dependency lists and a decision on "detected" semantics beyond file presence.
+- Set per-category availability flags per Req 1.6/1.7, 3.6/3.7, 4.6. When the README yields **no** detectable references (Req 3.6) or the code side has no languages and no key files (Req 3.7), `consistency_available` is `False`, so scoring reports the category as **limited-data** (`missing_data=True`) rather than a confident `0` (Req 2.6, 7.5). This avoids the misleading hard-zero observed for content/config repositories such as `mattpocock/skills`.
 
 ### `app/health/lockfile.py`
 
