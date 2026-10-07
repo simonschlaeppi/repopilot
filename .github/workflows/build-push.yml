@@ -37,3 +37,14 @@ jobs:
           docker build -t $REGISTRY/$ECR_REPOSITORY:${{ github.sha }} -t $REGISTRY/$ECR_REPOSITORY:latest .
           docker push $REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
           docker push $REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Deploy to ECS Express Mode
+        env:
+          IMAGE: ${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+          SERVICE_ARN: arn:aws:ecs:eu-central-1:403874533335:service/default/repopilot-backend
+          SECRET_ARN: arn:aws:secretsmanager:eu-central-1:403874533335:secret:repopilot/openai-api-key-x1YAoX
+        run: |
+          aws ecs update-express-gateway-service \
+            --service-arn "$SERVICE_ARN" \
+            --primary-container "{\"image\":\"$IMAGE\",\"containerPort\":8000,\"secrets\":[{\"name\":\"OPENAI_API_KEY\",\"valueFrom\":\"$SECRET_ARN\"}]}" \
+            --region "$AWS_REGION"

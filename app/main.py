@@ -20,7 +20,7 @@ def health():
 
 @app.get("/")
 def home():
-    return {"message": "RepoPilot is running"}
+    return {"message": "RepoPilot is STILL running"}
 
 @app.get("/analyze")
 def analyze(owner: str, repo: str, include_code: bool = False):
