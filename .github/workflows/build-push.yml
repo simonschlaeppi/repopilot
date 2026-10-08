@@ -3,6 +3,8 @@ name: Build and push to ECR
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 env:
@@ -10,35 +12,66 @@ env:
   ECR_REPOSITORY: repopilot-backend
 
 permissions:
-  id-token: write   # required to request the OIDC token
+  id-token: write
   contents: read
 
 jobs:
-  build-push:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: Run tests
+        env:
+          OPENAI_API_KEY: dummy-for-tests
+        run: python -m pytest
+
+  build-scan-push:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t repopilot-backend:${{ github.sha }} .
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8 # v0.36.0
+        with:
+          image-ref: repopilot-backend:${{ github.sha }}
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: "1"
 
       - name: Assume AWS role via OIDC
+        if: github.ref == 'refs/heads/main'
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::403874533335:role/github-actions-repopilot
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Log in to ECR
+        if: github.ref == 'refs/heads/main'
         id: ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build and push image
+      - name: Tag and push
+        if: github.ref == 'refs/heads/main'
         env:
           REGISTRY: ${{ steps.ecr.outputs.registry }}
         run: |
-          docker build -t $REGISTRY/$ECR_REPOSITORY:${{ github.sha }} -t $REGISTRY/$ECR_REPOSITORY:latest .
+          docker tag repopilot-backend:${{ github.sha }} $REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
+          docker tag repopilot-backend:${{ github.sha }} $REGISTRY/$ECR_REPOSITORY:latest
           docker push $REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
           docker push $REGISTRY/$ECR_REPOSITORY:latest
 
       - name: Deploy to ECS Express Mode
+        if: github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'
         env:
           IMAGE: ${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
           SERVICE_ARN: arn:aws:ecs:eu-central-1:403874533335:service/default/repopilot-backend
