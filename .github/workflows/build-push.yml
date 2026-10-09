@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   ci:
-    uses: simonschlaeppi/mini-idp-workflows/.github/workflows/container-deploy.yml@main
+    uses: simonschlaeppi/mini-idp-workflows/.github/workflows/container-deploy.yml@f5e78d9a0ac129e85e527ac65caf4aaed9564d0e
     with:
       role-to-assume: arn:aws:iam::403874533335:role/github-actions-repopilot
       ecr-repository: repopilot-backend
